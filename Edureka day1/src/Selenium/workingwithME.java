@@ -1,20 +1,18 @@
 package Selenium;
 
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
-import com.sun.org.apache.xpath.internal.operations.String;
-
-public class workingwithChrome {
+public class workingwithME {
 	
 	//creta intace of chrome driver
 	
-	ChromeDriver driver;
+	EdgeDriver driver;
 	
 	public void invokeBrowser() {
-		System.setProperty("webdriver.chrome.driver","C:\\Selenium Drivers\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.edge.driver","C:\\Selenium Drivers\\MicrosoftWebDriver.exe");
 			
-		driver =new ChromeDriver();
+		driver =new EdgeDriver();
 		
 		Dimension dim =new Dimension(400,600);
 		

@@ -2,19 +2,18 @@ package Selenium;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.sun.org.apache.xpath.internal.operations.String;
-
-public class workingwithChrome {
+public class workingwithff {
 	
 	//creta intace of chrome driver
 	
-	ChromeDriver driver;
+	FirefoxDriver driver;
 	
 	public void invokeBrowser() {
-		System.setProperty("webdriver.chrome.driver","C:\\Selenium Drivers\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.gecko.driver","C:\\Selenium Drivers\\geckodriver-v0.21.0-win64\\geckodriver.exe");
 			
-		driver =new ChromeDriver();
+		driver =new FirefoxDriver();
 		
 		Dimension dim =new Dimension(400,600);
 		
@@ -48,4 +47,5 @@ public class workingwithChrome {
 		
 		
 	}
+
 }

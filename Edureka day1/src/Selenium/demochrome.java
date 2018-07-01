@@ -8,7 +8,10 @@ public class demochrome {
 		workingwithChrome wc = new workingwithChrome();
 		
 		wc.invokeBrowser();
-
+		
+		wc.navigatecomands();
+		 
+	System.out.println(wc.titelofpage());	 
 	}
 
 }
