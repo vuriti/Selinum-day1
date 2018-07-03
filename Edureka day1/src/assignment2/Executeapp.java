@@ -7,7 +7,10 @@ public class Executeapp {
 		
 		Launchurl edu = new Launchurl();
 		
-		edu.openapp();
+		edu.openapp("firefox");
+		edu.elements();
+		edu.navigation();
+		edu.close();
 		
 	}
 
