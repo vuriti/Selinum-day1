@@ -1,8 +1,10 @@
 package assigment3;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
+
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
+//import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -11,13 +13,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Workingmethods {
 
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-	LocalDateTime now = LocalDateTime.now();
+	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+	//LocalDateTime now = LocalDateTime.now();
 
 
 	WebDriver driver;
@@ -53,11 +57,11 @@ public class Workingmethods {
 		
 		System.out.println("****************Open URL start******************");
 
-		System.out.println("current time:" + dtf.format(now));
+		//System.out.println("current time:" + dtf.format(now));
 		
 	driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 		
-		System.out.println("current time after Page load Time out:" + dtf.format(now));
+		//System.out.println("current time after Page load Time out:" + dtf.format(now));
 
 		// Step3 : Navigate to “https://www.edureka.co/”
 		
@@ -76,22 +80,22 @@ public class Workingmethods {
 	public void actionsonapp() {
 
 		System.out.println("******************actions app start ****************");
-		System.out.println("current time:" + dtf.format(now));
+		//System.out.println("current time:" + dtf.format(now));
 		
 		// step 5: Set implicit wait for all the activities on the browser
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
-		System.out.println("current time after implicit wait:" + dtf.format(now));
+		//System.out.println("current time after implicit wait:" + dtf.format(now));
 		
 		System.out.println("******************************************");
 		
-		System.out.println("current time:" + dtf.format(now));
+		//System.out.println("current time:" + dtf.format(now));
 		
 		//Step 6:Set selenium script timeout and execute any asynchronous script (Ex: window.setTimeout(arguments[arguments. Length-1], 500);)to validate the  script timeout
 
 	driver.manage().timeouts().setScriptTimeout(15, TimeUnit.SECONDS);
 		
-		System.out.println("current time after script time out:" + dtf.format(now));
+		//System.out.println("current time after script time out:" + dtf.format(now));
 		
 		//Step :7.Search for “Selenium” course in the search box and press “Enter”
 		
@@ -102,12 +106,12 @@ public class Workingmethods {
 	
 	//Step : 8.Add explicit wait for page to navigate to selenium course and click on the course
 
-	System.out.println("current time :" + dtf.format(now));
+	//System.out.println("current time :" + dtf.format(now));
 	WebDriverWait wait = new WebDriverWait(driver,10);
 	
  wait.until(ExpectedConditions.presenceOfElementLocated(By.className("courseimgsecgrid")));
  
- System.out.println("current time after explicite out:" + dtf.format(now));
+ //System.out.println("current time after explicite out:" + dtf.format(now));
 	
 	driver.findElement(By.className("courseimgsecgrid")).click();
 	
@@ -135,22 +139,54 @@ public class Workingmethods {
 	
 	//12.Wait for whole page to be loaded and now select “All courses” from the menu option
 	
-	driver.manage().timeouts().pageLoadTimeout(2, TimeUnit.SECONDS);
+	try {
+	
+	driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 	
 	System.out.println("Current Page is: " + driver.getTitle() );
 	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='mCSB_3_container']/li[@id ='load_allcourses']")));	
 	
 	WebElement cource = driver.findElement(By.xpath("//div[@id='mCSB_3_container']/li[@id ='load_allcourses']"));
-		cource.click();
+	//driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	
+	Actions bulider =new Actions(driver);
+	
+	Action seriesOfActions = bulider
+			.moveToElement(cource)
+			//.doubleClick(cource)
+			.click(cource)
+			//.doubleClick(cource)
+			.build();
+	seriesOfActions.perform();
+	
+	} catch (Exception e) {
+		System.out.println("exception in all cource");
+	}
+		//cource.click();
+	// WebDriverWait wait1 = new WebDriverWait(driver, 10);
+
+	//wait.until(ExpectedConditions.elementToBeClickable(By.id("course-box-520")));
+	 //WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id(>someid>)));
+	 
+			 
+	//driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
 		
-	driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
+	//driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
+	driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	
+	WebElement Nextco = driver.findElement(By.xpath("//a[@data-coursename ='DevOps Masters Program']"));
+	
+	System.out.println(Nextco);
 	
 	
-	System.out.println("Current Page is: " + driver.getTitle() );
+	
+	System.out.println("Current Page is:raviteja " + driver.getTitle() );
 		
 			}
 
 	public void closeurl() {
+		
+		System.out.println("we are closeing");
 		driver.quit();
 	}
 	
