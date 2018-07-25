@@ -15,6 +15,9 @@ import org.openqa.selenium.support.ui.Select;
 public class flightmodules {
 
 	WebDriver driver;
+	
+	public int scc=0;
+	
 
 	public void openbrowser(String browserType) {
 
