@@ -1,5 +1,6 @@
 package TestCase;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -15,12 +16,14 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import PageFactory.Edureka_loginpage;
+import PageFactory.Userhomepage;
 import Utils.ExcelConfig;
 import junit.framework.Assert;
 
 public class Edureka {
 	WebDriver driver;
 	Edureka_loginpage loginpage;
+	Userhomepage blog;
 
 	public void Invokbrowser(String browserType) {
 
@@ -51,43 +54,36 @@ public class Edureka {
 
 	@DataProvider(name = "login")
 	public Object[][] login() {
-		Object[][] data = new Object[2][2];
+		Object[][] data = new Object[1][2];
 
-		data[0][0] = "12132";
-		data[0][1] = "132151";
+		// data[0][0] = "12132";
+		// data[0][1] = "132151";
 
-		data[1][0] = "testee128@gmail.com";
-		data[1][1] = "vuritikotaiah01";
+		data[0][0] = "testee128@gmail.com";
+		data[0][1] = "vuritikotaiah01";
 
 		return data;
 
 	}
 
-	
-	
-	
-	
-	@DataProvider(name ="Exceldata")
-	public Object[][]useexcel(){
+	@DataProvider(name = "Exceldata")
+	public Object[][] useexcel() {
 		ExcelConfig config = new ExcelConfig("C:\\Users\\vurit\\eclipse-workspace\\FrameWork\\TestData\\TestData.xlsx");
-		
+
 		int rows = config.getrow(0);
-		
+
 		Object[][] data1 = new Object[rows][2];
-		
-		for (int i=0;i<rows;i++) {
-			
+
+		for (int i = 0; i < rows; i++) {
+
 			data1[i][0] = config.getdata(0, i, 0);
 			data1[i][1] = config.getdata(0, i, 1);
-			
+
 		}
-		return data1 ;
-		
+		return data1;
+
 	}
-	
-	
-	
-	
+
 	@BeforeMethod
 	public void openurl() {
 
@@ -98,13 +94,14 @@ public class Edureka {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	@Test(dataProvider = "Exceldata")
+	// @SuppressWarnings("deprecation")
+	@Test(dataProvider = "login")
 	public void TC_001(String user, String password) throws Throwable {
 
 		System.out.println("Test 1 statrs");
 
 		loginpage = new Edureka_loginpage(driver);
+		blog = new Userhomepage(driver);
 
 		loginpage.waittimepg1();
 		loginpage.loginclick();
@@ -112,19 +109,39 @@ public class Edureka {
 		loginpage.username(user);
 		loginpage.password(password);
 		loginpage.submitbutton();
+		// System.out.println("step before wait for blog");
+		// blog.wiatblog();
+		// System.out.println("step after wait for blog");
+		Thread.sleep(5000);
 
-		Thread.sleep(3000);
+		String Parent = driver.getWindowHandle();
+		blog.clickblog();
+		// System.out.println("click blog");
 
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		Set<String> allwindow = driver.getWindowHandles();
 
-		WebElement profile = driver.findElement(By.xpath("//span[@class='webinar-profile-name']"));
+		System.out.println("all window count : " + allwindow.size());
 
-		boolean homepage = profile.isDisplayed();
-		Assert.assertEquals(true, homepage);
+		for (String child : allwindow) {
+
+			if (!Parent.equalsIgnoreCase(child)) {
+				driver.switchTo().window(child);
+				System.out.println(driver.getTitle());
+
+				Thread.sleep(3000);
+			}
+
+		}
+		
+		blog.editserach();
+		blog.clicksearch();
+		blog.clickinterview();
+
+		driver.switchTo().window(Parent);
 
 	}
 
-	@AfterMethod
+	// @AfterMethod
 	public void close() {
 
 		driver.quit();

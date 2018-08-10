@@ -5,9 +5,8 @@
     <classes>
       <class name="TestCase.Edureka">
         <methods>
-          <include name="TC_001" invocation-numbers="0 1"/>
+          <include name="TC_001" invocation-numbers="0"/>
           <include name="openurl"/>
-          <include name="close"/>
         </methods>
       </class> <!-- TestCase.Edureka -->
     </classes>
